@@ -1,0 +1,37 @@
+## docker-compose usando driver macvlan
+## by PeladoNerd https://youtu.be/eoFxMaeB9H4
+
+version: "2"
+
+services:
+
+  httpd:
+    image: httpd
+    ports:
+      - 80:80
+    volumes:
+      - ./scripts:/usr/share/scripts/
+    networks:
+      lan:
+        ipv4_address: 192.168.1.6
+
+
+  tomcat:
+    image: tomcat
+    ports:
+      - 8080:8080
+    volumes:
+      - ./scripts:/usr/share/scripts/
+    networks:
+      lan:
+        ipv4_address: 192.168.1.5
+
+networks:
+  lan:
+    driver: macvlan
+    driver_opts:
+      parent: enp3s0
+    ipam:
+      config:
+        - subnet: "192.168.1.0/24"
+          gateway: "192.168.1.49"
