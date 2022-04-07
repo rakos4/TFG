@@ -1,5 +1,5 @@
 #La imagen que se utiliza es la que se crea con Dockerfile, en caso de no haber compilado la imagen se debe ejecutar el comando: 
-docker build -t tomcat-tfg:v3 .
+#  --> docker build -t tomcat-tfg:v3 .
 #se crean dos contenedores con la imagen de tomcat
 #se le asigna un volumen el cual compartirá archivos necesarios para realizar la configuración necesaria en cada tomcat
 #se indica que al inicio se ejecute el script de configuración
