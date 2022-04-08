@@ -23,6 +23,7 @@ function configuraAgenteZabbix(){
 #funcion que da los permisos necesarios a la clave pública del SSH
 function configuraSSH() {
  chmod 700 /root/.ssh/authorized_keys
+ chown root:root /root/.ssh/authorized_keys
 }
 
 #si la configuracion esta realizada se inicia el agente de zabbix y el tomcat, por el contrario, se inicializa la configuración
