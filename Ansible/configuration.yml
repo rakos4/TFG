@@ -1,0 +1,29 @@
+---
+
+
+- hosts: tomcats
+  gather_facts: true
+  tasks:
+#    - debug: var=hostvars[inventory_hostname]['ansible_env'].SSH_CONNECTION.split(' ')[2]
+    - name: Instala Zabbix
+      apt: name=zabbix-agent state=present
+    - name: Configura Zabbix
+      copy:
+        src: zabbix_agentd.conf
+        dest: /etc/zabbix/zabbix_agentd.conf
+      notify:
+        - "Reinicia Zabbix"
+    - name: Configura tomcat
+      template:
+        src: setenv.j2
+        dest: /usr/local/tomcat/bin/setenv.sh
+        mode: '0744'
+      notify:
+        - "Ejecuta Setenv"  
+
+  handlers:
+    - name: Reinicia Zabbix
+      service: name=zabbix-agent state=restarted
+      
+    - name: Ejecuta Setenv
+      shell: sh /usr/local/tomcat/bin/setenv.sh
